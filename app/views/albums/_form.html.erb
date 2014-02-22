@@ -1,17 +1,25 @@
-<form action="<%= albums.persisted? ? albums_url(albums) : albumss_url %>" 	       	   	method="post"	enctype="multipart/form-data">
-	<% if albums.persisted? %>
+<form action="<%= album.persisted? ? album_url(album) : band_albums_url %>" 	method="post"	enctype="multipart/form-data">
+	<% if album.persisted? %>
 		<input type='hidden' name="_method" value="PATCH">
 	<% end %>
+
 	<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
-	<label for="albums_name">Album Name</label>
-	<input type="text" name="albums[album_name]" value="<%= albums.album_name %>" id="albums_name">
+	<label for="album_name">Album Name</label>
+	<input type="text" name="album[album_name]" value="<%= album.album_name %>" id="album_name">
 	<br>
-	<label for="band_name"><Band Name></label>
-	<select name="album[band_id]">
-		<% Band.all.each do |band| %>
-			<if album.band = >
+	<label for="band">Band</label>
+			<br>
+	<select name="album[band_id]" id="band">
+		<% Band.all.order(:name).each do |band| %>
+			<% if band == album.band %>
+				<option value="<%= band.id %>" selected><%= band.name %></option>
+			<% else %>
+				<option value="<%= band.id %>"><%= band.name %></option>
+			<% end %>
+		<% end %>
+	</select>
+	<br>
 
-
-	<input type="submit" value="Create Band">
+	<input type="submit" value="Create Album">
 </form>

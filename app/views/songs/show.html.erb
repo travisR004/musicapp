@@ -1,0 +1,20 @@
+<%= @song.title %>
+<br>
+<%= @song.lyrics %>
+<br>
+<% if current_user %>
+	<%= render './notes/form', song_id: @song.id, user_id: @current_user.id %>
+<% end %>
+<br>
+<% @song.notes.each do |note| %>
+	<%= note.body %>
+	<% if note.user_id == @current_user.id %>
+		<%= button_to "Destroy Note", song_notes_url(@song.id), method: 'delete' %>
+	<% end %>
+<% end %>
+<br>
+<%= @song.album.album_name %>
+<br>
+<%= @song.band.name %>
+
+<%= button_to "Destroy Song", song_url(@song), method: 'delete' %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140221191208) do
+ActiveRecord::Schema.define(version: 20140221235000) do
 
   create_table "albums", force: true do |t|
     t.integer  "band_id",    null: false
@@ -31,26 +31,39 @@ ActiveRecord::Schema.define(version: 20140221191208) do
 
   add_index "bands", ["name"], name: "index_bands_on_name"
 
+  create_table "notes", force: true do |t|
+    t.integer  "user_id",    null: false
+    t.text     "body",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "song_id"
+  end
+
+  add_index "notes", ["song_id"], name: "index_notes_on_song_id"
+  add_index "notes", ["user_id"], name: "index_notes_on_user_id"
+
   create_table "songs", force: true do |t|
     t.integer  "album_id",    null: false
     t.string   "title",       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "bonus_track"
+    t.text     "lyrics"
   end
 
   add_index "songs", ["album_id"], name: "index_songs_on_album_id"
   add_index "songs", ["title"], name: "index_songs_on_title"
 
   create_table "users", force: true do |t|
-    t.string   "email",           null: false
-    t.string   "password_digest", null: false
-    t.string   "session_token",   null: false
+    t.string   "email",                            null: false
+    t.string   "password_digest",                  null: false
+    t.string   "session_token",                    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "activated",        default: false
+    t.string   "activation_token"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["session_token"], name: "index_users_on_session_token"
-
 end

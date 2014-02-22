@@ -9,22 +9,20 @@ class SongsController < ApplicationController
   end
 
   def new
-    @song = Song.new
-    render :new
+    @song = Song.new(album_id: params[:album_id])
   end
 
   def create
     @song = Song.new(song_params)
     if @song.save
-      redirect_to songs_url
+      redirect_to album_songs_url
     else
-      flash.now[:error] = ["Invalid Song Credentials"]
+      flash.now[:error] = @song.errors.full_messages
       render :new
     end
   end
 
   def edit
-    render :edit
   end
 
   def update
@@ -32,21 +30,21 @@ class SongsController < ApplicationController
       redirect_to songs_url
     else
       flash.now[:error] = @song.errors.full_messages
+      render :edit
     end
   end
 
   def destroy
     @song.destroy!
+    redirect_to bands_url
   end
 
   private
-
   def get_song
     @song = Song.find(params[:id])
   end
 
   def song_params
-    params.require(:song).permit(:title, :album_id, :bonus_track)
+    params.require(:song).permit(:title, :album_id, :bonus_track, :lyrics)
   end
-
 end

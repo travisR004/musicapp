@@ -1,0 +1,6 @@
+<% Band.all.order(:name).each do |band| %>
+	<%= link_to band.name, band_url(band) %>
+	<br>
+<% end %>
+
+<%= link_to "Add a New Band", new_band_url %>

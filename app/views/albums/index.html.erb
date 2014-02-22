@@ -1,0 +1,5 @@
+<% @albums.each do |album| %>
+	<%= link_to album.album_name, album_url(album) %>
+	<br>
+<% end %>
+<br>

@@ -1,9 +1,5 @@
 class SessionsController < ApplicationController
-  before_action :require_user, only: [:new, :create]
-
-  def require_user
-    redirect_to "/" if logged_in?
-  end
+  before_action :require_logged_out, only: [:new, :create]
 
   def new
     render :new
@@ -11,12 +7,14 @@ class SessionsController < ApplicationController
 
   def create
     get_user
-    if @user
+    if @user.nil?
+      flash.now[:error] = ["Invalid Credentials"]
+      render :new
+    elsif @user.activated
       login!
       redirect_to "/"
     else
-      flash.now[:error] = ["Invalid Credentials"]
-      render :new
+      flash.now[:error] = ["Please Activate Your Account"]
     end
   end
 
@@ -29,5 +27,9 @@ class SessionsController < ApplicationController
   private
   def get_user
     @user = User.find_by_credentials(params[:user])
+  end
+
+  def require_logged_out
+    redirect_to root_url if logged_in?
   end
 end

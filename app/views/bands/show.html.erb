@@ -1,0 +1,17 @@
+<table>
+	<tr>
+		<td>Name: </td>
+		<td><%= @band.name %></td>
+	</tr>
+</table>
+<% @band.albums.each do |album| %>
+	<%= link_to album.album_name, album_url(album.id) %>
+	<br>
+	<% @band.songs.each do |song| %>
+		<%= link_to song.title, song_url(song) %>
+		<br>
+	<% end %>
+	<br>
+<% end %>
+<br>
+<%= link_to "Add New Album", new_band_album_url(@band.id) %>

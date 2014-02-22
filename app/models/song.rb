@@ -8,6 +8,7 @@
 #  created_at  :datetime
 #  updated_at  :datetime
 #  bonus_track :boolean
+#  lyrics      :text
 #
 
 class Song < ActiveRecord::Base
@@ -15,6 +16,7 @@ class Song < ActiveRecord::Base
 
   belongs_to :album
 
-  delegate :band, to: :album
+  has_many :notes, :dependent => :destroy
 
+  delegate :band, to: :album
 end

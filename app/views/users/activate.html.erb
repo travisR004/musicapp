@@ -1,0 +1,8 @@
+<form action="<%= song_notes_url(song_id) %>" method="post"	enctype="multipart/form-data">
+	<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+	<input type="hidden" name="note[song_id]" value="<%= song_id %>">
+	<input type="hidden" name="note[user_id]" value="<%= user_id %>">
+
+	<input type="submit" value="Activate">
+</form>

@@ -1,5 +1,6 @@
 class BandsController < ApplicationController
   before_action :get_band, only: [:destroy, :show, :edit, :update]
+
   def index
     @bands = Band.all
   end
@@ -31,6 +32,7 @@ class BandsController < ApplicationController
       redirect_to bands_url
     else
       flash.now[:error] = @band.errors.full_messages
+      render :edit
     end
   end
 

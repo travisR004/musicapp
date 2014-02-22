@@ -1,0 +1,10 @@
+<%= @album.album_name %>
+<br>
+<%= link_to @album.band.name, band_url(@album.band) %>
+<br>
+<% @album.songs.each do |song| %>
+	<%= link_to song.title, song_url(song) %>
+	<br>
+<% end %>
+<%= link_to "Add New Song", new_album_song_url(@album) %>
+<%= button_to "Destroy Album", album_url(@album), method: 'delete' %>

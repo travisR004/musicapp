@@ -1,5 +1,4 @@
 module SessionsHelper
-
   def current_user
     return nil if session[:session_token].nil?
     @current_user ||= User.find_by(session_token: session[:session_token])
@@ -14,10 +13,7 @@ module SessionsHelper
   end
 
   def logout!
-    @user.reset_session_token!
-    @user.save!
+    current_user.reset_session_token!
     session[:session_token] = nil
   end
-
-
 end

@@ -5,10 +5,55 @@
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
-</head>
-<body>
+  <style>
+   .td-style{
+     padding: 5px;
+   }
 
-<%= yield %>
+	 .right {
+		 float: right;
+	 }
 
+   #requests-style{
+     padding: 10px;
+     border: 2px solid #ccc;
+
+   }
+
+   body{
+     font-family: verdana;
+     color: black;
+     font-weight: bold;
+     background-image: url('http://www.hollywoodreporter.com/sites/default/files/2013/08/florida_georgia_line.jpg');
+   }
+
+   #outer-container {
+   width: 100%;
+   opacity: 0.8;
+   filter: alpha(opacity=80);
+   }
+
+   #inner-container{
+     width: 60%;
+     margin: 20px auto;
+     border: 2px solid #ccc;
+     border-radius: 5px;
+     padding: 10px;
+     background: white;
+   }
+   </style>
+ </head>
+ <body>
+   <div id="outer-container">
+     <div id="inner-container">
+			 <%= render 'layouts/header' %>
+ 			<% if flash[:error] %>
+ 				<% flash[:error].each do |error| %>
+ 					<ul style="color:red;"><%= error %></ul>
+ 				<% end %>
+ 			<% end %>
+       <%= yield %>
+     </div>
+   </div>
 </body>
 </html>
